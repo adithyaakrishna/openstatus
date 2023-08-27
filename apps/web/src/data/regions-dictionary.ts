@@ -101,4 +101,4 @@ export const regionsDict = {
     name: "ap-southeast-2",
     location: "Sydney, Australia",
   },
-} as const;
+};

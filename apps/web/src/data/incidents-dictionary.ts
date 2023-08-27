@@ -23,4 +23,4 @@ export const statusDict = {
     icon: "search-check",
     order: 4,
   },
-} as const;
+};

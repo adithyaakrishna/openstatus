@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { regionsDict } from "@/data/regions-dictionary";
 import { DataTableDateRangePicker } from "./data-table-date-ranger-picker";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { DataTableFilterInput } from "./data-table-filter-input";
+import { statusCodes } from "@/data/status-codes";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -21,7 +21,19 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-1 items-center gap-2">
-        <DataTableFilterInput table={table} />
+        {table.getColumn("status") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("status")}
+            title="Status"
+            options={Object.keys(statusCodes).map((key) => {
+              const statusKey = key as unknown as keyof typeof statusCodes;
+              return {
+                label: statusCodes[statusKey].statusCode,
+                value: statusCodes[statusKey].statusCode,
+              };
+            })}
+          />
+        )}
         {table.getColumn("region") && (
           <DataTableFacetedFilter
             column={table.getColumn("region")}
